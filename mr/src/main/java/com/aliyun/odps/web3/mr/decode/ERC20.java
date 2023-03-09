@@ -70,7 +70,7 @@ public class ERC20 {
 
         // TODO: specify input and output tables
         LinkedHashMap<String, String> pt = new LinkedHashMap<String, String>();
-        pt.put("pt", args[0]);
+        pt.put("pt", args[2]);
         InputUtils.addTable(TableInfo.builder().tableName("ethereum_logs_di").partSpec(pt).build(), job);
         OutputUtils.addTable(TableInfo.builder().tableName(args[1]).partSpec(pt).build(), job);
 
