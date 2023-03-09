@@ -36,22 +36,26 @@ public class ERC20 {
             if (!transferSign.equals(topic1)) {
                 return;
             }
-            String topic2 = (String) record.get("topic_2");
-            String topic3 = (String) record.get("topic_3");
-            String from = "0x" + topic3.substring(topic2.length() - 40, topic2.length());
-            String to = "0x" + topic3.substring(topic3.length() - 40, topic3.length());
+            try {
+                String topic2 = (String) record.get("topic_2");
+                String topic3 = (String) record.get("topic_3");
+                String from = "0x" + topic3.substring(topic2.length() - 40, topic2.length());
+                String to = "0x" + topic3.substring(topic3.length() - 40, topic3.length());
 
-            Record result = context.createOutputRecord();
-            result.set("contract_address", record.get("contract_address"));
-            result.set("from", from);
-            result.set("to", to);
-            result.set("value", Numeric.toBigInt((byte[]) record.get("value")).toString());
-            result.set("block_number", record.get("block_number"));
-            result.set("block_timestamp", record.get("block_timestamp"));
-            result.set("transaction_index", record.get("transaction_index"));
-            result.set("transaction_hash", record.get("transaction_hash"));
-            result.set("log_index", record.get("log_index"));
-            context.write(result);
+                Record result = context.createOutputRecord();
+                result.set("contract_address", record.get("contract_address"));
+                result.set("from", from);
+                result.set("to", to);
+                result.set("value", Numeric.toBigInt((String) record.get("data")).toString());
+                result.set("block_number", record.get("block_number"));
+                result.set("block_timestamp", record.get("block_timestamp"));
+                result.set("transaction_index", record.get("transaction_index"));
+                result.set("transaction_hash", record.get("transaction_hash"));
+                result.set("log_index", record.get("log_index"));
+                context.write(result);
+            } catch (Exception ignore) {
+                // 脏数据暂不处理
+            }
         }
     }
 
