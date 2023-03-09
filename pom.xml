@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>udf</module>
+        <module>mr</module>
     </modules>
 
     <properties>
@@ -65,6 +66,40 @@
                 <groupId>org.web3j</groupId>
                 <artifactId>core</artifactId>
                 <version>5.0.0</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.web3j</groupId>
+                        <artifactId>crypto</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.github.jnr</groupId>
+                        <artifactId>jnr-unixsocket</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.squareup.okhttp3</groupId>
+                        <artifactId>okhttp</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.squareup.okhttp3</groupId>
+                        <artifactId>logging-interceptor</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.reactivex.rxjava2</groupId>
+                        <artifactId>rxjava</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.java-websocket</groupId>
+                        <artifactId>Java-WebSocket</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>jackson-databind</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven.plugins</groupId>
