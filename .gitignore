@@ -36,3 +36,5 @@ nohup.out
 *.log
 *.gz
 *.tmp
+
+examples/
