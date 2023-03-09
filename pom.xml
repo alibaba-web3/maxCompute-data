@@ -4,14 +4,74 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.aliyun.odps.myJava</groupId>
-    <artifactId>maxComputeJ</artifactId>
+    <groupId>com.aliyun.odps.web3</groupId>
+    <artifactId>web3-data</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>udf</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sdk.version>0.40.10</sdk.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.aliyun.odps</groupId>
+                <artifactId>odps-sdk-core</artifactId>
+                <version>${sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.odps</groupId>
+                <artifactId>odps-sdk-udf</artifactId>
+                <version>${sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.odps</groupId>
+                <artifactId>odps-udf-local</artifactId>
+                <version>${sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.odps</groupId>
+                <artifactId>odps-sdk-mapred</artifactId>
+                <version>${sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.odps</groupId>
+                <artifactId>odps-mapred-local</artifactId>
+                <version>${sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.odps</groupId>
+                <artifactId>odps-sdk-graph</artifactId>
+                <version>${sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.odps</groupId>
+                <artifactId>odps-graph-local</artifactId>
+                <version>${sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+            </dependency>
+            <dependency>
+                <groupId>org.web3j</groupId>
+                <artifactId>core</artifactId>
+                <version>5.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
