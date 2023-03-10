@@ -22,6 +22,10 @@
             <artifactId>odps-sdk-udf</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.aliyun.odps</groupId>
+            <artifactId>odps-udf-local</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.web3j</groupId>
             <artifactId>core</artifactId>
         </dependency>

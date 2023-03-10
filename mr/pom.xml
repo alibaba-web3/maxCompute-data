@@ -23,6 +23,10 @@
             <artifactId>odps-sdk-mapred</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.aliyun.odps</groupId>
+            <artifactId>odps-mapred-local</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.web3j</groupId>
             <artifactId>core</artifactId>
         </dependency>

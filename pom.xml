@@ -17,7 +17,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <sdk.version>0.40.10</sdk.version>
+        <sdk.version>0.43.2</sdk.version>
     </properties>
 
     <dependencyManagement>
@@ -36,6 +36,7 @@
                 <groupId>com.aliyun.odps</groupId>
                 <artifactId>odps-udf-local</artifactId>
                 <version>${sdk.version}</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>com.aliyun.odps</groupId>
@@ -46,6 +47,7 @@
                 <groupId>com.aliyun.odps</groupId>
                 <artifactId>odps-mapred-local</artifactId>
                 <version>${sdk.version}</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>com.aliyun.odps</groupId>
@@ -56,6 +58,7 @@
                 <groupId>com.aliyun.odps</groupId>
                 <artifactId>odps-graph-local</artifactId>
                 <version>${sdk.version}</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>

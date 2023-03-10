@@ -38,3 +38,5 @@ nohup.out
 *.tmp
 
 examples/
+temp/
+warehouse/

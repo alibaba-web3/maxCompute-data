@@ -11,6 +11,7 @@ import com.aliyun.odps.mapred.utils.InputUtils;
 import com.aliyun.odps.mapred.utils.OutputUtils;
 import org.web3j.abi.EventEncoder;
 import org.web3j.utils.Numeric;
+import org.web3j.utils.Strings;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -33,31 +34,35 @@ public class ERC20 {
         @Override
         public void map(long key, Record record, Mapper.TaskContext context) throws IOException {
             String topic1 = (String) record.get("topic_1");
-            if (!transferSign.equals(topic1)) {
+            String data = (String) record.get("data");
+            if (!transferSign.equals(topic1) || data.length() <=2) {
                 return;
             }
-            try {
-                String topic2 = (String) record.get("topic_2");
-                String topic3 = (String) record.get("topic_3");
-                String from = "0x" + topic3.substring(topic2.length() - 40, topic2.length());
-                String to = "0x" + topic3.substring(topic3.length() - 40, topic3.length());
+            String topic2 = (String) record.get("topic_2");
+            String topic3 = (String) record.get("topic_3");
 
-                Record result = context.createOutputRecord();
-                result.set("contract_address", record.get("contract_address"));
-                result.set("from", from);
-                result.set("to", to);
-                result.set("value", Numeric.toBigInt((String) record.get("data")).toString());
-                result.set("block_number", record.get("block_number"));
-                result.set("block_timestamp", record.get("block_timestamp"));
-                result.set("transaction_index", record.get("transaction_index"));
-                result.set("transaction_hash", record.get("transaction_hash"));
-                result.set("log_index", record.get("log_index"));
-                context.write(result);
-            } catch (Exception ignore) {
-                // 脏数据暂不处理
+            Record result = context.createOutputRecord();
+            result.set("contract_address", record.get("contract_address"));
+            result.set("from", indexValue2Address(topic2));
+            result.set("to", indexValue2Address(topic3));
+            result.set("value", Numeric.toBigInt(data).toString());
+            result.set("block_number", record.get("block_number"));
+            result.set("block_timestamp", record.get("block_timestamp"));
+            result.set("transaction_index", record.get("transaction_index"));
+            result.set("transaction_hash", record.get("transaction_hash"));
+            result.set("log_index", record.get("log_index"));
+            context.write(result);
+        }
+
+        public String indexValue2Address(String s) {
+            if (Strings.isEmpty(s) || s.length() <= 40) {
+                return s;
             }
+            return "0x" + s.substring(s.length() - 40, s.length());
         }
     }
+
+
 
     public static void main(String[] args) throws OdpsException {
         if (args.length != 3) {
