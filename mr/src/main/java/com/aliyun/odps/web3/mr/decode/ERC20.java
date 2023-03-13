@@ -26,7 +26,7 @@ public class ERC20 {
         private String transferSign;
 
         @Override
-        public void setup(TaskContext context) throws IOException {
+        public void setup(TaskContext context) {
             String methodSignature = context.getJobConf().get("methodSignature");
             transferSign = EventEncoder.buildEventSignature(methodSignature);
         }
