@@ -19,16 +19,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.aliyun.odps.web3</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.aliyun.odps</groupId>
             <artifactId>odps-sdk-mapred</artifactId>
         </dependency>
         <dependency>
             <groupId>com.aliyun.odps</groupId>
             <artifactId>odps-mapred-local</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.web3j</groupId>
-            <artifactId>core</artifactId>
         </dependency>
     </dependencies>
 
