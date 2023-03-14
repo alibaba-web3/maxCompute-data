@@ -59,14 +59,14 @@ public class OpenSea {
             result.set("transaction_index", record.get("transaction_index"));
             result.set("transaction_hash", record.get("transaction_hash"));
             result.set("log_index", record.get("log_index"));
-            result.set("maker", ContractUtils.decodeIndexedValue(maker, "address"));
-            result.set("taker", ContractUtils.decodeIndexedValue(taker, "address"));
+            result.set("maker", TypeConvertUtils.convert2String(ContractUtils.decodeIndexedValue(maker, "address")));
+            result.set("taker", TypeConvertUtils.convert2String(ContractUtils.decodeIndexedValue(taker, "address")));
 
-            List<Type> list = ContractUtils.decodeParameter((String) record.get("data"), "bytes32,bytes32,uint256");
+            List<String> list = TypeConvertUtils.convert2String(ContractUtils.decodeParameter((String) record.get("data"), "bytes32,bytes32,uint256"));
             result.set("metadata", metadata);
-            result.set("buyHash", TypeConvertUtils.convert2String(list.get(0)));
-            result.set("sellHash", TypeConvertUtils.convert2String(list.get(1)));
-            result.set("price", TypeConvertUtils.convert2String(list.get(2)));
+            result.set("buyHash", list.get(0));
+            result.set("sellHash", list.get(1));
+            result.set("price", list.get(2));
             context.write(result);
         }
     }
