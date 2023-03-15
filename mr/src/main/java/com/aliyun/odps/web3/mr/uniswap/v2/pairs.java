@@ -1,4 +1,4 @@
-package com.aliyun.odps.web3.mr.decode.uniswap.v2;
+package com.aliyun.odps.web3.mr.uniswap.v2;
 
 import com.aliyun.odps.OdpsException;
 import com.aliyun.odps.data.Record;
