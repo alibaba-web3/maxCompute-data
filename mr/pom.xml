@@ -30,6 +30,10 @@
             <groupId>com.aliyun.odps</groupId>
             <artifactId>odps-mapred-local</artifactId>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

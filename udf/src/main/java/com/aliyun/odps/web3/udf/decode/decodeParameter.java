@@ -25,7 +25,9 @@ public class decodeParameter extends UDF {
      */
     public List<String> evaluate(String data, String nonIndexParameters) {
         String[] types = nonIndexParameters.split(",");
-        assert types.length > 0;
+        if (types.length == 0) {
+            return null;
+        }
         List<TypeReference<Type>> parameters = new ArrayList<>();
         Arrays.stream(types).forEach(t -> {
             parameters.add((TypeReference<Type>) TypeReference.create(AbiTypes.getType(t)));
