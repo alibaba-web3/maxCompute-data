@@ -1,4 +1,4 @@
-package com.aliyun.odps.web3.mr.decode;
+package com.aliyun.odps.web3.mr.decode.opensea;
 
 import com.aliyun.odps.OdpsException;
 import com.aliyun.odps.data.Record;
@@ -12,7 +12,6 @@ import com.aliyun.odps.mapred.utils.OutputUtils;
 import com.aliyun.odps.web3.common.ContractUtils;
 import com.aliyun.odps.web3.common.TypeConvertUtils;
 import org.web3j.abi.EventEncoder;
-import org.web3j.abi.datatypes.Type;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -22,7 +21,8 @@ import java.util.List;
  * @Author: smy
  * @Date: 2023/3/9 1:48 PM
  */
-public class OpenSea {
+@Deprecated
+public class Event {
     public static class openSeaMapper extends MapperBase {
 
         private String methodId;
@@ -67,6 +67,7 @@ public class OpenSea {
             result.set("buyHash", list.get(0));
             result.set("sellHash", list.get(1));
             result.set("price", list.get(2));
+
             context.write(result);
         }
     }
