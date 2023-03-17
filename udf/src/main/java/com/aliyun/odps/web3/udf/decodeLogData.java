@@ -44,6 +44,7 @@ public class decodeLogData extends UDF {
         return map;
     }
 
+    // for test
     public static void main(String[] args) {
         System.out.println((new decodeLogData()).evaluate(
             "0x00000000000000000000000000000000000000000000000000000000000000000555c04a3f195d6efe57355e9dc6fec376e80d4f463d8d998db143a4decf9d570000000000000000000000000000000000000000000000000186cc6acd4b0000",
