@@ -17,6 +17,7 @@ import org.web3j.utils.Numeric;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -27,7 +28,10 @@ import java.util.*;
  * @Date: 2023/3/15 9:37 AM
  */
 public class Trade {
+
     public static class openSeaMapper extends MapperBase {
+
+        private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
         private List<String> exchangeContractAddresses = Arrays.asList("0x7be8076f4ea4a4ad08075c2508e481d6c946d12b","0x7f268357a8c2552623316e2562d90e642bb538e5");
 
@@ -42,7 +46,12 @@ public class Trade {
             if (!exchangeContractAddresses.contains(record.get("to"))) {
                 return;
             }
-            atomicMatch(record, context);
+            try {
+                atomicMatch(record, context);
+            } catch (Exception ignore) {
+                // ignore not standard contract
+                System.out.println(String.format("fail to decode txn:{%s}, errors:{%s}", record.get("transaction_hash"), ignore.getMessage()));
+            }
         }
 
         private void atomicMatch(Record record, Mapper.TaskContext context) throws IOException {
@@ -82,7 +91,7 @@ public class Trade {
             // for batch
             BigInteger price = nftTransfers.size() != 0 ? totalPrice.divide(BigInteger.valueOf(nftTransfers.size())):BigInteger.ZERO;
 
-
+            //String label = sdf.format((Date)record.get("block_timestamp"));
             for(NftTransfer nftTransfer: nftTransfers) {
                 Record result = context.createOutputRecord(context.getInputTableInfo().getLabel());
                 result.set("block_number", record.get("block_number"));
@@ -348,8 +357,8 @@ public class Trade {
     }
 
     public static List<String> getPtList(String startStr, String endStr) {
-        List<String> result = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        List<String> result = new ArrayList<>();
         LocalDate start = LocalDate.parse(startStr, formatter);
         LocalDate end = LocalDate.parse(endStr, formatter);
         while (!start.isAfter(end)) {
@@ -371,12 +380,15 @@ public class Trade {
             System.err.println("Usage: OnlyMapper <pt_start> <pt_end> ");
             System.exit(2);
         }
+
         JobConf job = new JobConf();
         List<String> dateList = getPtList(args[0], args.length == 2 ? args[1]:args[0]);
+        String[] columns = {"block_number","block_timestamp","transaction_index","transaction_hash","from","to","input"};
         dateList.forEach(date -> {
             LinkedHashMap<String, String> pt = new LinkedHashMap<>();
             pt.put("pt", date);
-            InputUtils.addTable(TableInfo.builder().projectName("web3_maxCompute").tableName("ethereum_transactions_di").partSpec(pt).label(date).build(), job);
+            InputUtils.addTable(TableInfo.builder().projectName("web3_maxCompute").tableName("tmp_ethereum_transactions_di")
+                    .partSpec(pt).label(date).cols(columns).build(), job);
             OutputUtils.addTable(TableInfo.builder().tableName("opensea_trades_di").partSpec(pt).label(date).build(), job);
         });
 
