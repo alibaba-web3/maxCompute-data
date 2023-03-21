@@ -46,10 +46,6 @@ public class Trade {
             if (!exchangeContractAddresses.contains(record.get("to"))) {
                 return;
             }
-            String success = (String) record.get("success");
-            if ("0".equals(success.trim())) {
-                return;
-            }
             try {
                 atomicMatch(record, context);
             } catch (Exception ignore) {
@@ -387,7 +383,7 @@ public class Trade {
 
         JobConf job = new JobConf();
         List<String> dateList = getPtList(args[0], args.length == 2 ? args[1]:args[0]);
-        String[] columns = {"block_number","block_timestamp","transaction_index","transaction_hash","from","to","input","success"};
+        String[] columns = {"block_number","block_timestamp","transaction_index","transaction_hash","from","to","input"};
         dateList.forEach(date -> {
             LinkedHashMap<String, String> pt = new LinkedHashMap<>();
             pt.put("pt", date);
