@@ -387,7 +387,7 @@ public class Trade {
 
         JobConf job = new JobConf();
         List<String> dateList = getPtList(args[0], args.length == 2 ? args[1]:args[0]);
-        String[] columns = {"block_number","block_timestamp","transaction_index","transaction_hash","from","to","input"};
+        String[] columns = {"block_number","block_timestamp","transaction_index","transaction_hash","from","to","input","success"};
         dateList.forEach(date -> {
             LinkedHashMap<String, String> pt = new LinkedHashMap<>();
             pt.put("pt", date);
