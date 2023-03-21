@@ -46,6 +46,10 @@ public class Trade {
             if (!exchangeContractAddresses.contains(record.get("to"))) {
                 return;
             }
+            String success = (String) record.get("success");
+            if ("0".equals(success.trim())) {
+                return;
+            }
             try {
                 atomicMatch(record, context);
             } catch (Exception ignore) {
