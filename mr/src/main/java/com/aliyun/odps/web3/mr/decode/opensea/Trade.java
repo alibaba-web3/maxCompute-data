@@ -110,7 +110,7 @@ public class Trade {
                 result.set("currency_contract", addrs.get(6));
                 result.set("amount_raw", price.toString());
                 result.set("seller", sellOrder.maker);
-                result.set("sell_kind", "1".equals(sellOrder.saleKind) ? "FixedPrice":"DutchAuction");
+                result.set("sell_kind", "0".equals(sellOrder.saleKind) ? "FixedPrice":"DutchAuction");
                 context.write(result, context.getInputTableInfo().getLabel());
             }
         }
